@@ -69,6 +69,26 @@
   .chip{display:flex;align-items:center;gap:5px;background:var(--card-2);border:1px solid var(--line);
         border-radius:999px;padding:4px 9px;font-size:10.5px;color:var(--ink-2);flex:none}
   .chip:hover{color:var(--ink);border-color:var(--line-2)}
+  .chip.exp{background:var(--accent);border-color:transparent;color:#06121a;font-weight:700}
+  .chip.exp:hover{filter:brightness(1.07);color:#06121a}
+
+  /* Point at the way in -- and stop pointing the moment it has been used. */
+  .expwrap{position:relative;display:inline-flex}
+  .expwrap .exp{animation:ring 2.1s ease-out infinite}
+  @keyframes ring{
+    0%{box-shadow:0 0 0 0 color-mix(in oklab,var(--accent) 60%,transparent)}
+    70%{box-shadow:0 0 0 10px transparent}
+    100%{box-shadow:0 0 0 0 transparent}}
+  .nudge{position:absolute;top:calc(100% + 5px);right:2px;z-index:6;display:flex;
+         flex-direction:column;align-items:center;gap:1px;font-size:9px;font-weight:700;
+         letter-spacing:.08em;text-transform:uppercase;color:var(--accent);white-space:nowrap;
+         pointer-events:none;animation:bob2 1.6s ease-in-out infinite;
+         text-shadow:0 0 8px var(--bg),0 0 4px var(--bg),0 1px 2px var(--bg)}
+  .nudge i{width:0;height:0;display:block;border:5px solid transparent;
+           border-bottom-color:var(--accent)}
+  @keyframes bob2{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+  .expwrap.seen .nudge{display:none}
+  .expwrap.seen .exp{animation:none}
 
   .menu{position:absolute;top:60px;right:14px;background:var(--card);border:1px solid var(--line);
         border-radius:12px;padding:5px;z-index:12;min-width:180px;box-shadow:0 18px 44px rgba(0,0,0,.6)}
@@ -282,6 +302,230 @@
   .brief .a{font-size:13.5px;line-height:1.5}
   .brief .w{font-size:11.5px;color:var(--ink-4);margin-top:7px;line-height:1.45}
 
+  /* ------------------------------------------------------------ dashboard */
+  .money{background:var(--card);border:1px solid var(--line);border-radius:15px;
+         padding:15px 16px;margin-top:2px}
+  .money .mk{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+             color:var(--ink-4)}
+  .money .mv{display:block;font-size:30px;font-weight:700;letter-spacing:-.02em;
+             margin-top:5px;font-variant-numeric:tabular-nums}
+  .money .mt{display:block;font-size:11.5px;color:var(--ink-4);margin-top:4px}
+
+  .perf{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px}
+  .perf.up{border-color:color-mix(in oklab,var(--accent) 34%,transparent)}
+  .perf.dn{border-color:color-mix(in oklab,var(--bad) 34%,transparent)}
+  .ph{display:flex;align-items:center;gap:8px}
+  .pill{font-size:12.5px;font-weight:700;padding:3px 9px;border-radius:999px;
+        font-variant-numeric:tabular-nums}
+  .perf.up .pill{color:var(--accent);background:color-mix(in oklab,var(--accent) 16%,transparent)}
+  .perf.dn .pill{color:var(--bad);background:color-mix(in oklab,var(--bad) 16%,transparent)}
+  .pt{font-size:11.5px;color:var(--ink-4)}
+  .spark{margin-left:auto;display:block}
+  .pw{margin:9px 0 0;font-size:13px;line-height:1.5;color:var(--ink-2)}
+  .pp{margin:8px 0 0;font-size:12.5px;line-height:1.5;color:var(--ink-3);
+      border-top:1px solid var(--line);padding-top:8px}
+  .pp b{color:var(--accent);font-weight:700;letter-spacing:.06em;font-size:9.5px;
+        text-transform:uppercase;margin-right:6px}
+
+  .explore{display:block;width:100%;background:var(--accent);color:#06121a;font-weight:700;
+           font-size:14px;padding:14px;border-radius:12px;margin-top:12px}
+  .explore:hover{filter:brightness(1.07)}
+  .explore[disabled]{background:var(--card-3);color:var(--ink-4)}
+
+  .foots{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}
+  .foots button{background:var(--card);border:1px solid var(--line);border-radius:12px;
+                padding:11px 8px;text-align:center}
+  .foots button:hover{border-color:var(--line-2)}
+  .foots .fk{display:block;font-size:9px;letter-spacing:.06em;text-transform:uppercase;
+             color:var(--ink-4);line-height:1.3}
+  .foots .fv{display:block;font-size:17px;font-weight:700;margin-top:3px;
+             font-variant-numeric:tabular-nums}
+
+  /* revenue trend inside the money card */
+  .money .mrow{display:flex;align-items:baseline;gap:8px;margin-top:4px}
+  .money .mvs{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--accent)}
+  .money .mvs.dn{color:var(--bad)}
+  .rev{display:flex;align-items:flex-end;gap:3px;height:40px;margin-top:12px}
+  .rev i{flex:1;display:block;background:var(--card-3);border-radius:2px 2px 0 0}
+  .rev i.last{background:var(--accent)}
+  .revax{display:flex;justify-content:space-between;font-size:9px;color:var(--ink-4);
+         margin-top:5px;letter-spacing:.04em}
+
+  /* headline stats */
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px}
+  .stat .sk{display:block;font-size:9px;letter-spacing:.07em;text-transform:uppercase;
+            color:var(--ink-4)}
+  .stat .sv{display:block;font-size:19px;font-weight:700;margin-top:3px;
+            font-variant-numeric:tabular-nums}
+  .stat .sd{display:block;font-size:10.5px;font-weight:600;margin-top:1px;
+            font-variant-numeric:tabular-nums}
+  .stat .sd.up{color:var(--accent)} .stat .sd.dn{color:var(--bad)}
+
+  /* attribution mix */
+  .mixb{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .mixr{display:grid;grid-template-columns:74px 1fr 34px;gap:9px;align-items:center;
+        font-size:11.5px;margin-bottom:8px}
+  .mixr:last-child{margin-bottom:0}
+  .mxk{color:var(--ink-2)}
+  .mxv{text-align:right;color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+  /* standouts */
+  .std{display:block;width:100%;text-align:left;background:var(--card);
+       border:1px solid var(--line);border-radius:12px;padding:11px 12px;margin-bottom:7px}
+  .std:hover{border-color:var(--line-2)}
+  .std.good{border-left:3px solid var(--accent)}
+  .std.bad{border-left:3px solid var(--bad)}
+  .stag{display:inline-block;font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;
+        font-weight:700;margin-bottom:4px}
+  .std.good .stag{color:var(--accent)} .std.bad .stag{color:var(--bad)}
+  .stt{display:block;font-size:13px;font-weight:600}
+  .stm{display:block;font-size:11px;color:var(--ink-4);margin-top:2px;line-height:1.4}
+  .stn{display:block;font-size:11.5px;color:var(--ink-2);margin-top:5px;
+       font-variant-numeric:tabular-nums}
+
+  /* --------------------------------------------------- channels + making */
+  .chans{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .chan{display:flex;align-items:center;gap:8px;background:var(--card);
+        border:1px solid var(--line);border-radius:11px;padding:11px 12px;
+        font-size:13px;font-weight:600;text-align:left;color:var(--ink-3)}
+  .chan .box{flex:none;width:17px;height:17px;border-radius:5px;border:1.5px solid var(--ink-4);
+             display:grid;place-items:center;font-size:10px;color:#06121a}
+  .chan.on{color:var(--ink);border-color:color-mix(in oklab,var(--accent) 45%,transparent)}
+  .chan.on .box{background:var(--accent);border-color:var(--accent)}
+
+  .gsteps{display:flex;flex-direction:column;gap:8px}
+  .gs{display:flex;align-items:baseline;gap:9px;font-size:12.5px;line-height:1.4;
+      color:var(--ink-2)}
+  .gs .ico{flex:none;color:var(--accent);font-size:11px}
+  .gs .ico.src{color:var(--ink-4)}
+  .gs .gt{flex:1}
+  .gs .gd{font-size:10.5px;color:var(--ink-4);white-space:nowrap;overflow:hidden;
+          text-overflow:ellipsis;max-width:42%}
+
+  .mcard{display:block;width:100%;text-align:left;background:var(--card);
+         border:1px solid var(--line);border-radius:13px;padding:12px;margin-bottom:8px}
+  .mcard:hover{border-color:var(--line-2)}
+  .mh{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+  .mkind{font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;
+         color:var(--accent)}
+  .mspec{font-size:9px;letter-spacing:.06em;color:var(--ink-4)}
+  .mch{margin-left:auto;color:var(--ink-4);font-size:14px}
+  .mq{display:block;font-size:13.5px;font-weight:600;line-height:1.4}
+  .mb{display:block;font-size:11.5px;color:var(--ink-4);line-height:1.45;margin-top:4px}
+
+  /* ------------------------------------------------------------- publish */
+  .dest{display:flex;align-items:baseline;gap:10px;background:var(--card);
+        border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-bottom:7px}
+  .dest .dk{flex:none;font-size:9px;letter-spacing:.08em;text-transform:uppercase;
+            font-weight:700;color:var(--accent);width:62px}
+  .dest .dv{font-size:12.5px;color:var(--ink-2);line-height:1.4}
+  .confirm{display:flex;align-items:flex-start;gap:10px;background:var(--card);
+           border:1px solid color-mix(in oklab,var(--accent) 34%,transparent);
+           border-radius:12px;padding:13px;margin-top:11px;font-size:13px;
+           line-height:1.45;cursor:pointer}
+  .confirm input{flex:none;width:18px;height:18px;accent-color:var(--accent);margin:0}
+
+  /* ------------------------------------------------------- GMB stat tiles */
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:12px;
+        padding:12px;text-align:left}
+  .tile:hover{border-color:var(--line-2)}
+  .tile .tk{display:block;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;
+            color:var(--ink-4)}
+  .tile .tv{display:block;font-size:21px;font-weight:700;margin-top:4px;
+            font-variant-numeric:tabular-nums}
+  .tile .td{display:block;font-size:11px;color:var(--ink-4);margin-top:2px}
+  .tile .td.up{color:var(--accent)} .tile .td.dn{color:var(--bad)}
+
+  /* ------------------------------- subscriptions, under analytics on scroll */
+  .recur{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px}
+  .rhead{display:flex;align-items:baseline;gap:9px}
+  .rnum{font-size:23px;font-weight:700;font-variant-numeric:tabular-nums}
+  .rdel{font-size:11.5px;color:var(--accent);font-variant-numeric:tabular-nums}
+  .rdel.dn{color:var(--bad)}
+  .rbars{display:flex;align-items:flex-end;gap:3px;height:40px;margin-top:10px}
+  .rbars i{flex:1;display:block;background:var(--card-3);border-radius:2px 2px 0 0}
+  .rbars i.last{background:var(--accent)}
+
+  /* ------------------------------------------------------------- creative */
+  /* Portrait, but capped -- a true 4:5 would push the controls off the sheet. */
+  .art{position:relative;display:grid;place-items:center;border-radius:12px;
+       height:186px;overflow:hidden;margin-bottom:12px}
+  .art.vid{height:206px}
+  .artover{font-size:19px;font-weight:800;letter-spacing:.02em;line-height:1.25;
+           text-align:center;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.45);
+           padding:0 18px;transition:opacity .3s ease}
+  .artover.sm{font-size:16px;font-weight:600;max-width:88%}
+  .artmark{position:absolute;left:12px;bottom:11px;font-size:9px;letter-spacing:.14em;
+           text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:700}
+  .play{position:absolute;right:12px;bottom:10px;width:38px;height:38px;border-radius:50%;
+        background:rgba(255,255,255,.92);color:#0b1016;font-size:14px;display:grid;
+        place-items:center;padding-left:2px}
+  .vbar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.22)}
+  .vbar i{display:block;height:100%;width:0;background:#fff;transition:width .5s linear}
+
+  .beats{display:flex;flex-direction:column;gap:5px;margin:-4px 0 12px}
+  .beat{display:flex;gap:9px;align-items:flex-start;font-size:11.5px;line-height:1.45;
+        color:var(--ink-4);padding:7px 9px;border-radius:9px;background:var(--card-2);
+        transition:color .2s ease,background .2s ease}
+  .beat .bn{flex:none;width:15px;height:15px;border-radius:50%;background:var(--card-3);
+            color:var(--ink-4);font-size:9px;display:grid;place-items:center;font-weight:700}
+  .beat.on{color:var(--ink);background:color-mix(in oklab,var(--accent) 14%,var(--card-2))}
+  .beat.on .bn{background:var(--accent);color:#06121a}
+  .beat.done{color:var(--ink-3)}
+  .beat.done .bn{background:color-mix(in oklab,var(--accent) 40%,transparent);color:#06121a}
+
+  /* the generated page, in chrome */
+  .brw{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:12px;
+       background:#fff}
+  .brwbar{display:flex;align-items:center;gap:5px;background:var(--card-3);padding:8px 10px}
+  .brwbar i{width:7px;height:7px;border-radius:50%;background:var(--ink-4);display:block}
+  .brwbar .url{flex:1;margin-left:6px;background:var(--card);border-radius:5px;
+               padding:3px 8px;font-size:9.5px;color:var(--ink-3);
+               white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .brwpage{background:#fbfbfd;color:#15151d;max-height:320px;overflow:auto;
+           scrollbar-width:none}
+  .brwpage::-webkit-scrollbar{display:none}
+  .pnav{display:flex;align-items:center;gap:7px;padding:11px 13px;border-bottom:1px solid #e9e9ef;
+        font-size:11px}
+  .pnav b{font-size:12px;margin-right:auto}
+  .pnav span{width:22px;height:5px;border-radius:3px;background:#dcdce4;display:block}
+  .phero{display:grid;place-items:center;padding:30px 18px;text-align:center}
+  .phero b{font-size:19px;font-weight:800;color:#fff;line-height:1.25;
+           text-shadow:0 2px 16px rgba(0,0,0,.4)}
+  .pbody{margin:0;padding:14px 14px 10px;font-size:11.5px;line-height:1.6;color:#42424e}
+  .psec{display:flex;align-items:center;padding:10px 14px;border-top:1px solid #ececf2;
+        font-size:11.5px;font-weight:600;color:#15151d}
+  .psec i{margin-left:auto;font-style:normal;color:#9a9aa6}
+  .pcta{margin:12px 14px;padding:10px;border-radius:8px;background:#15151d;color:#fff;
+        text-align:center;font-size:11.5px;font-weight:700}
+  .pfoot{padding:9px 14px 14px;font-size:9.5px;color:#9a9aa6;text-align:center}
+
+  /* the business-profile post */
+  .gpost{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:12px;
+         background:var(--card)}
+  .ghead{display:flex;align-items:center;gap:9px;padding:11px 12px}
+  .gav{flex:none;width:30px;height:30px;border-radius:50%;background:var(--card-3);
+       display:grid;place-items:center;font-size:10px;font-weight:700;color:var(--accent)}
+  .gwho b{display:block;font-size:12.5px}
+  .gwho em{display:block;font-style:normal;font-size:10px;color:var(--ink-4);margin-top:1px}
+  .gart{height:112px}
+  .gtext{margin:0;padding:11px 12px 0;font-size:12.5px;line-height:1.5;color:var(--ink-2)}
+  .gcta{margin:11px 12px 12px;padding:9px;border-radius:8px;text-align:center;
+        font-size:12px;font-weight:700;color:var(--accent);
+        border:1px solid color-mix(in oklab,var(--accent) 40%,transparent)}
+
+  /* thumbnails on the made cards */
+  .mbody{display:flex;gap:11px;align-items:flex-start}
+  .thumb{flex:none;width:52px;height:62px;border-radius:8px;display:grid;place-items:center;
+         overflow:hidden}
+  .thumb em{font-style:normal;color:rgba(255,255,255,.9);font-size:13px}
+  .thumb.page{background:#fbfbfd;padding:7px;gap:4px;align-content:start}
+  .thumb.page i{display:block;width:100%;height:5px;border-radius:2px;background:#d8d8e0}
+  .thumb.page i:first-child{height:14px;background:#b9b9c6}
+  .mtx{min-width:0}
+
   /* --------------------------------------------------------------- sheet */
   .scrim{position:absolute;inset:0;background:rgba(4,5,8,.66);z-index:14;
          opacity:0;animation:fade .18s ease forwards}
@@ -337,9 +581,14 @@
     <div class="meta">
       <span class="st" id="stage"></span>
       <span class="cy" id="cycle"></span>
+      <button class="snd" id="lang" aria-pressed="true" onclick="toggleLang()">HI</button>
       <button class="snd" id="snd" aria-pressed="true" onclick="toggleSound()">Sound</button>
+      <span class="expwrap" id="expwrap">
+        <button class="chip exp" id="exp" onclick="explore()">Explore &nbsp;&rsaquo;</button>
+        <span class="nudge" aria-hidden="true"><i></i>Tap here</span>
+      </span>
       <button class="chip" id="chip" onclick="toggleMenu()" aria-haspopup="true">
-        <span id="chipTxt">Pick one</span> <span aria-hidden="true">&#9662;</span></button>
+        <span id="chipTxt"></span> <span aria-hidden="true">&#9662;</span></button>
     </div>
   </div>
   <div class="menu" id="menu" hidden></div>
@@ -347,7 +596,7 @@
   <div class="head"><h2 id="title"></h2><p id="sub"></p></div>
   <div class="screen" id="screen"></div>
 
-  <div class="foot">
+  <div class="foot" id="foot">
     <span class="cap" id="cap"></span>
     <button class="nav" id="back" onclick="go(-1)">&lsaquo; Back</button>
     <button class="nav pri" id="fwd" onclick="fwd()"></button>
@@ -361,7 +610,23 @@
 /* ----------------------------------------------------------------- data */
 const BIZ = {
   gym: { name:"Gym", ini:"NF", who:"Northside Fitness", at:"@northside.fitness",
-    say:"Post something about the new Sunday morning yoga batch.",
+    rev12:[112, 124, 131, 148, 142, 163, 171, 186, 194, 208, 221, 240], vs:"+18% on last month",
+    stats:[["Reach", "41.2k", "+22%", 1],["Engagement", "4.6%", "+0.8pt", 1],["Enquiries", "8", "+3", 1],["Cost per enquiry", "Rs 310", "-24%", 1]],
+    mix:[["Feed", 46],["Search", 28],["Profile", 19],["AI answers", 7]],
+    best:["Deadlift form check", "Reel &middot; 18 Feb", "22,400 reach &middot; 5 enquiries"], watch:["Price list posts", "4 published, zero enquiries in six weeks"],
+    money:{gen:"2,40,000",total:"8,40,000"},
+    recur:{label:"Members",series:[318, 332, 347, 359, 371, 384, 398, 412, 431, 449, 467, 486]},
+    perf:{dir:1,pct:"+18%",why:"Tutorials carried the month. Saves are up 44% and every enquiry traced back to one.",plan:"Tomorrow: film one form-check tutorial and schedule it for 11:15am."},
+    stock:{items:24,profiles:5,credits:1840},
+    sayHi:"Bhai, is Sunday se nayi morning yoga batch shuru kar rahe hain, subah 7 baje. Beginners ke liye hai, koi experience nahi chahiye. Iske liye kuch bana do.", sayDev:"\u092d\u093e\u0908, \u0907\u0938 \u0938\u0902\u0921\u0947 \u0938\u0947 \u0928\u0908 \u092e\u0949\u0930\u094d\u0928\u093f\u0902\u0917 \u092f\u094b\u0917\u093e \u092c\u0948\u091a \u0936\u0941\u0930\u0942 \u0915\u0930 \u0930\u0939\u0947 \u0939\u0948\u0902, \u0938\u0941\u092c\u0939 \u0938\u093e\u0924 \u092c\u091c\u0947\u0964 \u092c\u093f\u0917\u093f\u0928\u0930\u094d\u0938 \u0915\u0947 \u0932\u093f\u090f \u0939\u0948, \u0915\u094b\u0908 \u090f\u0915\u094d\u0938\u092a\u0940\u0930\u093f\u092f\u0902\u0938 \u0928\u0939\u0940\u0902 \u091a\u093e\u0939\u093f\u090f\u0964 \u0907\u0938\u0915\u0947 \u0932\u093f\u090f \u0915\u0941\u091b \u092c\u0928\u093e \u0926\u094b\u0964",
+    nextHi:"Ek form-check tutorial banao, 45 second ka, aur subah 11:15 pe schedule kar dena. Price list wala post ab mat banana, usse kuch nahi aa raha.", nextDev:"\u090f\u0915 \u092b\u0949\u0930\u094d\u092e \u091a\u0947\u0915 \u091f\u094d\u092f\u0942\u091f\u094b\u0930\u093f\u092f\u0932 \u092c\u0928\u093e\u0913, \u092a\u0948\u0902\u0924\u093e\u0932\u0940\u0938 \u0938\u0947\u0915\u0902\u0921 \u0915\u093e, \u0914\u0930 \u0938\u0941\u092c\u0939 \u0938\u0935\u093e \u0917\u094d\u092f\u093e\u0930\u0939 \u092c\u091c\u0947 \u0936\u0947\u0921\u094d\u092f\u0942\u0932 \u0915\u0930 \u0926\u0947\u0928\u093e\u0964 \u092a\u094d\u0930\u093e\u0907\u0938 \u0932\u093f\u0938\u094d\u091f \u0935\u093e\u0932\u093e \u092a\u094b\u0938\u094d\u091f \u0905\u092c \u092e\u0924 \u092c\u0928\u093e\u0928\u093e\u0964",
+    gen:[["think", "Exploring what worked for this account", "Is account mein kya chala hai, dekh raha hoon"],["src", "Last 90 days of posts", "instagram.com/northside.fitness"],["think", "Checking which formats produced enquiries", "Kaunse format se enquiries aayi, check kar raha hoon"],["src", "Class schedule page", "northsidefitness.in/classes"],["src", "Business profile", "Google Business Profile"],["think", "Writing the content", "Content likh raha hoon"],["think", "Finalising", "Final kar raha hoon"]],
+    made:{video:{t:"Sunday Morning Yoga, 7 AM start",spec:"0:24 VERTICAL",hook:"Never done yoga? Start here.",beats:["0:00  Empty studio, mats going down, sunrise through the window", "0:08  Three beginner poses, held and named on screen", "0:18  SUNDAY 7 AM - ALL LEVELS - first session free"],caption:"New Sunday morning batch. 7 AM, all levels, no experience needed. Link in bio to hold a spot.",tags:"#sundayyoga #beginneryoga #northsidefitness #morningroutine"},
+           photo:{t:"All levels welcome",spec:"1080 x 1350",overlay:"SUNDAY / 7 AM / ALL LEVELS",caption:"Sunday mornings just got slower. New yoga batch starts this week, and the first session is on us.",tags:"#sundayyoga #yogaforbeginners #northsidefitness"},
+           seo:{t:"/classes/sunday-yoga",spec:"LANDING PAGE",h1:"Sunday Morning Yoga, 7 AM",title:"Sunday Morning Yoga Class, 7 AM | Northside Fitness",meta:"Beginner-friendly Sunday yoga at 7 AM. All levels welcome, Rs 1,299 a month, first session free. Book online.",body:"A slow, beginner-friendly hour to open the week. No experience needed and no equipment to bring, mats are provided. The batch caps at fourteen so everyone gets corrected.",sections:["What to expect", "Who it suits", "Timings and fees", "Book a free first session"]},
+           gmb:{t:"New batch: Sunday 7 AM",spec:"BUSINESS POST",text:"New batch: Sunday Morning Yoga, 7 AM. All levels, no experience needed. Rs 1,299 a month and the first session is free.",cta:"Book"}},
+    gmb:{rows:[["Profile views", "3,140", "+22%", "Up since the class page went live -- the profile and the page reinforce each other."],["Call clicks", "84", "+31%", "Most calls land within an hour of a post going out."],["Direction requests", "212", "+14%", "The single strongest intent signal here. Someone asking for directions is coming in."],["Reviews", "47", "4.6 avg", "Twelve arrived this quarter. Answer engines quote review text when they quote you."]],note:"Direction requests are the intent signal that matters here -- they move with posting, not with follower count.",flag:"Only one of the four channels posts to the business profile. It is the cheapest reach on this list."},
+    say:"We are starting a new morning yoga batch this Sunday, 7am. It is for beginners, no experience needed. Make something for it.",
     assets:[["Video","Sunday Morning Yoga -- 7 AM start","0:24 VERTICAL"],
             ["Photo","All levels welcome","1080 x 1350"],
             ["Page","/classes/sunday-yoga","LANDING PAGE"]],
@@ -403,7 +668,23 @@ const BIZ = {
     because:"Tutorials are the only format here producing enquiries, and the ones posted before noon reach 2.4x further." },
 
   salon: { name:"Salon", ini:"CC", who:"Cedar and Co", at:"@cedarandco",
-    say:"Show the balayage we finished on Thursday.",
+    rev12:[128, 131, 127, 134, 130, 126, 124, 121, 119, 122, 118, 115], vs:"-9% on last month",
+    stats:[["Reach", "18.3k", "-31%", -1],["Engagement", "2.4%", "-1.1pt", -1],["Bookings", "4", "-5", -1],["Cost per booking", "Rs 2,180", "+61%", -1]],
+    mix:[["Feed", 58],["Profile", 24],["Search", 14],["AI answers", 4]],
+    best:["Balayage before and after", "Reel &middot; 28 Feb", "12,900 reach &middot; 3 bookings"], watch:["Static images", "Four of the last five posts, reach down 31%"],
+    money:{gen:"1,15,000",total:"4,20,000"},
+    recur:{label:"Repeat clients",series:[104, 108, 112, 115, 118, 120, 119, 116, 112, 108, 103, 96]},
+    perf:{dir:-1,pct:"-9%",why:"Reach fell 31%. Four of the last five posts were static images and none of them booked anyone.",plan:"Tomorrow: shoot two before-and-after reels and publish Thursday evening."},
+    stock:{items:18,profiles:4,credits:920},
+    sayHi:"Kal jo balayage colour correction kiya tha na, wo bahut achha aaya hai. Thursday evening ke slots bhi khaali hain is week. Iske liye kuch bana do.", sayDev:"\u0915\u0932 \u091c\u094b \u092c\u093e\u0932\u093e\u092f\u093e\u091c \u0915\u0932\u0930 \u0915\u0930\u0947\u0915\u094d\u0936\u0928 \u0915\u093f\u092f\u093e \u0925\u093e \u0928\u093e, \u0935\u094b \u092c\u0939\u0941\u0924 \u0905\u091a\u094d\u091b\u093e \u0906\u092f\u093e \u0939\u0948\u0964 \u0925\u0930\u094d\u0938\u0921\u0947 \u0907\u0935\u0928\u093f\u0902\u0917 \u0915\u0947 \u0938\u094d\u0932\u0949\u091f\u094d\u0938 \u092d\u0940 \u0916\u093e\u0932\u0940 \u0939\u0948\u0902 \u0907\u0938 \u0935\u0940\u0915\u0964 \u0907\u0938\u0915\u0947 \u0932\u093f\u090f \u0915\u0941\u091b \u092c\u0928\u093e \u0926\u094b\u0964",
+    nextHi:"Do before-and-after reel banao, colour correction wala aur Thursday ka gloss. Static image ab band karo, usse reach gir rahi hai.", nextDev:"\u0926\u094b \u092c\u093f\u092b\u094b\u0930 \u0906\u092b\u094d\u091f\u0930 \u0930\u0940\u0932 \u092c\u0928\u093e\u0913, \u0915\u0932\u0930 \u0915\u0930\u0947\u0915\u094d\u0936\u0928 \u0935\u093e\u0932\u093e \u0914\u0930 \u0925\u0930\u094d\u0938\u0921\u0947 \u0915\u093e \u0917\u094d\u0932\u0949\u0938\u0964 \u0938\u094d\u091f\u0948\u091f\u093f\u0915 \u0907\u092e\u0947\u091c \u0905\u092c \u092c\u0902\u0926 \u0915\u0930\u094b, \u0909\u0938\u0938\u0947 \u0930\u0940\u091a \u0917\u093f\u0930 \u0930\u0939\u0940 \u0939\u0948\u0964",
+    gen:[["think", "Exploring what worked for this account", "Is account mein kya chala hai, dekh raha hoon"],["src", "Last 90 days of posts", "instagram.com/cedarandco"],["think", "Reach is down 31% -- finding out why", "Reach 31% gir gaya hai, wajah dhoondh raha hoon"],["src", "Service pages", "cedarandco.in/services"],["src", "Business profile", "Google Business Profile"],["think", "Writing the content", "Content likh raha hoon"],["think", "Finalising", "Final kar raha hoon"]],
+    made:{video:{t:"Before and after, full colour correction",spec:"0:18 VERTICAL",hook:"Four hours, one colour correction.",beats:["0:00  The before, straight to camera, no filter", "0:06  Three fast cuts through the process", "0:13  The reveal, turning in daylight by the window"],caption:"Thursday's colour correction, start to finish. Four hours and worth every one of them.",tags:"#balayage #colourcorrection #hairtransformation #cedarandco"},
+           photo:{t:"Thursday gloss, three tones",spec:"1080 x 1350",overlay:"BEFORE / AFTER",caption:"Three tones blended through the mid-lengths. Thursday evening slots are open this week.",tags:"#balayage #hairgloss #cedarandco"},
+           seo:{t:"/services/balayage",spec:"SERVICE PAGE",h1:"Balayage and Colour Correction",title:"Balayage & Colour Correction in [area] | Cedar and Co",meta:"Hand-painted balayage and full colour correction. From Rs 4,500, three to four hours. See recent work and book Thursday evenings.",body:"Colour correction is not a single service, it is however many sessions your hair needs to get back to a tone that grows out cleanly. Most clients need one long session; some need two.",sections:["What balayage is", "Correction, and when you need it", "How long it takes", "Prices", "Recent work"]},
+           gmb:{t:"Thursday evening slots open",spec:"BUSINESS POST",text:"Thursday evening colour slots are open this week. Balayage and correction from Rs 4,500. Book online or call.",cta:"Book"}},
+    gmb:{rows:[["Profile views", "1,890", "+6%", "Flat, because nothing new has been posted to the profile in a month."],["Call clicks", "61", "-8%", "Down with reach. The profile is the only place hours are current."],["Direction requests", "96", "+3%", "Steady walk-ins, almost none of it attributable to content."],["Reviews", "112", "4.8 avg", "The strongest asset on the account, and it is doing nothing for search."]],note:"112 reviews at 4.8 is the best signal this business has, and nothing on the site or in the feed uses it.",flag:"Review text is quotable by answer engines. None of it appears on the website."},
+    say:"That colour correction we finished yesterday came out really well, and Thursday evening slots are open this week. Make something for it.",
     assets:[["Video","Before and after -- full colour correction","0:18 VERTICAL"],
             ["Photo","Thursday gloss, three tones","1080 x 1350"],
             ["Page","/services/balayage","SERVICE PAGE"]],
@@ -445,7 +726,23 @@ const BIZ = {
     because:"Transformations are the only format booking anyone, and Thursday evenings out-book every other slot." },
 
   restaurant: { name:"Restaurant", ini:"AK", who:"Ambrosia Kitchen", at:"@ambrosiakitchen",
-    say:"Put up this Friday's specials board.",
+    rev12:[196, 208, 214, 231, 247, 258, 272, 289, 301, 318, 339, 360], vs:"+26% on last month",
+    stats:[["Reach", "26.9k", "+34%", 1],["Engagement", "4.1%", "+1.2pt", 1],["Bookings", "14", "+6", 1],["Cost per cover", "Rs 96", "-19%", 1]],
+    mix:[["Feed", 41],["Profile", 33],["Search", 21],["AI answers", 5]],
+    best:["Friday specials board", "Reel &middot; 07 Mar", "14,100 reach &middot; 9 bookings"], watch:["Evening posting", "Three specials went out after 8pm and did a fifth of the reach"],
+    money:{gen:"3,60,000",total:"12,40,000"},
+    recur:{label:"Repeat covers",series:[186, 194, 203, 215, 228, 240, 251, 266, 279, 291, 305, 318]},
+    perf:{dir:1,pct:"+26%",why:"Midday posting did it. Every booking last month came from a post published before noon.",plan:"Tomorrow: specials reel at 11:15am, and re-cut the dessert carousel as a close-up."},
+    stock:{items:31,profiles:6,credits:2450},
+    sayHi:"Is Friday ka specials board taiyaar hai, teen naye plates hain, rate 240 se shuru. Iske liye kuch bana do, lunch se pehle.", sayDev:"\u0907\u0938 \u092b\u094d\u0930\u093e\u0907\u0921\u0947 \u0915\u093e \u0938\u094d\u092a\u0947\u0936\u0932\u094d\u0938 \u092c\u094b\u0930\u094d\u0921 \u0924\u0948\u092f\u093e\u0930 \u0939\u0948, \u0924\u0940\u0928 \u0928\u090f \u092a\u094d\u0932\u0947\u091f\u094d\u0938 \u0939\u0948\u0902, \u0930\u0947\u091f \u0926\u094b \u0938\u094c \u091a\u093e\u0932\u0940\u0938 \u0938\u0947 \u0936\u0941\u0930\u0942\u0964 \u0907\u0938\u0915\u0947 \u0932\u093f\u090f \u0915\u0941\u091b \u092c\u0928\u093e \u0926\u094b, \u0932\u0902\u091a \u0938\u0947 \u092a\u0939\u0932\u0947\u0964",
+    nextHi:"Daily specials reel banao aur subah 11:15 pe hi schedule karna. Dessert wala carousel dobara cut karo, close-up mein.", nextDev:"\u0921\u0947\u0932\u0940 \u0938\u094d\u092a\u0947\u0936\u0932\u094d\u0938 \u0930\u0940\u0932 \u092c\u0928\u093e\u0913 \u0914\u0930 \u0938\u0941\u092c\u0939 \u0938\u0935\u093e \u0917\u094d\u092f\u093e\u0930\u0939 \u092c\u091c\u0947 \u0939\u0940 \u0936\u0947\u0921\u094d\u092f\u0942\u0932 \u0915\u0930\u0928\u093e\u0964 \u0921\u0947\u091c\u0930\u094d\u091f \u0935\u093e\u0932\u093e \u0915\u0948\u0930\u094b\u0938\u0947\u0932 \u0926\u094b\u092c\u093e\u0930\u093e \u0915\u091f \u0915\u0930\u094b, \u0915\u094d\u0932\u094b\u091c\u093c \u0905\u092a \u092e\u0947\u0902\u0964",
+    gen:[["think", "Exploring what worked for this account", "Is account mein kya chala hai, dekh raha hoon"],["src", "Last 90 days of posts", "instagram.com/ambrosiakitchen"],["think", "Midday posts reach 2.9x further -- using that", "Dopahar ke post 2.9x zyada pahunchte hain"],["src", "Menu pages", "ambrosiakitchen.in/menu"],["src", "Business profile", "Google Business Profile"],["think", "Writing the content", "Content likh raha hoon"],["think", "Finalising", "Final kar raha hoon"]],
+    made:{video:{t:"Friday specials, three plates",spec:"0:24 VERTICAL",hook:"Three plates. This Friday only.",beats:["0:00  Board being chalked, close on the hand", "0:07  Each plate landing, one second of steam", "0:19  FRIDAY - FROM Rs 240 - book a table"],caption:"This Friday's board. Three plates, in until they run out. Tables from 12.",tags:"#fridayspecials #ambrosiakitchen #todaysmenu"},
+           photo:{t:"Tonight's board",spec:"1080 x 1350",overlay:"FRIDAY SPECIALS",caption:"On the board this Friday. From Rs 240, and they go quickly.",tags:"#fridayspecials #ambrosiakitchen"},
+           seo:{t:"/menu/friday-specials",spec:"MENU PAGE",h1:"Friday Specials",title:"Friday Specials, Updated Weekly | Ambrosia Kitchen",meta:"This Friday's specials board, updated every week. Three plates from Rs 240. Open 12 to 11, book a table online.",body:"The board changes every Friday and goes up here the same morning. Three plates, priced from Rs 240, served until they run out.",sections:["This week's board", "Prices", "Opening hours", "Book a table"]},
+           gmb:{t:"This week's specials, from Rs 240",spec:"BUSINESS POST",text:"This Friday's specials are up. Three plates from Rs 240, served from 12 until they run out. Book a table or walk in.",cta:"Reserve"}},
+    gmb:{rows:[["Profile views", "8,420", "+38%", "The weekly specials post is the reason. Nothing else moves this number."],["Call clicks", "196", "+44%", "Table bookings by phone track the midday post almost exactly."],["Direction requests", "640", "+29%", "Peaks between 11am and 1pm, matching when the post goes out."],["Reviews", "284", "4.4 avg", "Volume is good. The 4.4 average is the one number worth defending."]],note:"Direction requests peak in the same hour the specials post goes out. The profile is doing real work here.",flag:"Opening hours are not on the website, only on the profile. That is why late-dinner searches miss."},
+    say:"This Friday's specials board is ready, three new plates starting at Rs 240. Make something for it, before lunch.",
     assets:[["Video","Friday specials -- three plates","0:24 VERTICAL"],
             ["Photo","Tonight's board","1080 x 1350"],
             ["Page","/menu/friday-specials","MENU PAGE"]],
@@ -487,7 +784,23 @@ const BIZ = {
     because:"The midday slot is the only one producing bookings -- it reaches 2.9x further than the evening one." },
 
   realestate: { name:"Real estate", ini:"HV", who:"Harbour View", at:"@harbourview.homes",
-    say:"Do a walkthrough of the waterfront apartment.",
+    rev12:[420, 465, 510, 545, 590, 610, 655, 700, 735, 780, 815, 850], vs:"+11% on last month",
+    stats:[["Reach", "79.0k", "+17%", 1],["Engagement", "3.1%", "+0.4pt", 1],["Enquiries", "11", "+4", 1],["Cost per enquiry", "Rs 1,940", "-12%", 1]],
+    mix:[["Feed", 52],["Search", 26],["Profile", 15],["AI answers", 7]],
+    best:["Waterfront walkthrough", "Reel &middot; 12 Mar", "41,200 reach &middot; 7 enquiries"], watch:["Stat card carousels", "Five published, not one enquiry in five weeks"],
+    money:{gen:"8,50,000",total:"31,00,000"},
+    recur:{label:"Active mandates",series:[9, 10, 10, 11, 12, 12, 13, 14, 15, 17, 18, 19]},
+    perf:{dir:1,pct:"+11%",why:"Walkthroughs. All eleven enquiries this month came from a face on camera, none from stat cards.",plan:"Tomorrow: film the Alder Street relist walkthrough and the harbour-front flat."},
+    stock:{items:27,profiles:5,credits:1360},
+    sayHi:"Waterfront wala two-bed apartment abhi dekh kar aaya hoon, balcony se pura harbour dikhta hai. Weekend pe viewings rakhni hain. Iske liye kuch bana do.", sayDev:"\u0935\u0949\u091f\u0930\u092b\u094d\u0930\u0902\u091f \u0935\u093e\u0932\u093e \u091f\u0942 \u092c\u0947\u0921 \u0905\u092a\u093e\u0930\u094d\u091f\u092e\u0947\u0902\u091f \u0905\u092d\u0940 \u0926\u0947\u0916 \u0915\u0930 \u0906\u092f\u093e \u0939\u0942\u0901, \u092c\u093e\u0932\u0915\u0928\u0940 \u0938\u0947 \u092a\u0942\u0930\u093e \u0939\u093e\u0930\u094d\u092c\u0930 \u0926\u093f\u0916\u0924\u093e \u0939\u0948\u0964 \u0935\u0940\u0915\u0947\u0902\u0921 \u092a\u0947 \u0935\u094d\u092f\u0942\u0907\u0902\u0917\u094d\u0938 \u0930\u0916\u0928\u0940 \u0939\u0948\u0902\u0964 \u0907\u0938\u0915\u0947 \u0932\u093f\u090f \u0915\u0941\u091b \u092c\u0928\u093e \u0926\u094b\u0964",
+    nextHi:"Do walkthrough reel banao, Alder Street ka relist aur harbour-front flat. Stat card wale post band karo, unse ek bhi enquiry nahi aayi.", nextDev:"\u0926\u094b \u0935\u0949\u0915\u0925\u094d\u0930\u0942 \u0930\u0940\u0932 \u092c\u0928\u093e\u0913, \u090f\u0932\u094d\u0921\u0930 \u0938\u094d\u091f\u094d\u0930\u0940\u091f \u0915\u093e \u0930\u0940\u0932\u093f\u0938\u094d\u091f \u0914\u0930 \u0939\u093e\u0930\u094d\u092c\u0930 \u092b\u094d\u0930\u0902\u091f \u092b\u094d\u0932\u0948\u091f\u0964 \u0938\u094d\u091f\u0948\u091f \u0915\u093e\u0930\u094d\u0921 \u0935\u093e\u0932\u0947 \u092a\u094b\u0938\u094d\u091f \u092c\u0902\u0926 \u0915\u0930\u094b\u0964",
+    gen:[["think", "Exploring what worked for this account", "Is account mein kya chala hai, dekh raha hoon"],["src", "Last 90 days of posts", "instagram.com/harbourview.homes"],["think", "Video out-performs stat cards four to one here", "Video stat cards se chaar guna aage hai"],["src", "Listing pages", "harbourview.in/listings"],["src", "Business profile", "Google Business Profile"],["think", "Writing the content", "Content likh raha hoon"],["think", "Finalising", "Final kar raha hoon"]],
+    made:{video:{t:"Waterfront apartment, full walkthrough",spec:"0:42 VERTICAL",hook:"Two bed, harbour-front, walk it with me.",beats:["0:00  Front door open, straight down the hall to the light", "0:12  Living room, then the balcony and the water", "0:28  Both bedrooms, then price and viewing times to camera"],caption:"Two bed on the harbour front. Walked it this morning, viewings this weekend.",tags:"#harbourview #waterfrontliving #propertytour #twobed"},
+           photo:{t:"Harbour-front, two bed",spec:"1080 x 1350",overlay:"TWO BED / HARBOUR FRONT",caption:"Morning light off the water, straight through the living room. Viewings open this weekend.",tags:"#harbourview #waterfrontapartment #propertyforsale"},
+           seo:{t:"/listings/waterfront-apartment",spec:"LISTING PAGE",h1:"Two Bed Waterfront Apartment",title:"Two Bed Waterfront Apartment, Harbour Front | Harbour View",meta:"Two bedroom harbour-front apartment with balcony and water views. Floor plan, price and weekend viewing times.",body:"Two bedrooms, one bath and a balcony running the width of the living room, facing the water. Third floor with a lift, and parking for one.",sections:["The apartment", "Floor plan", "Price and terms", "Book a viewing"]},
+           gmb:{t:"New listing: harbour-front, two bed",spec:"BUSINESS POST",text:"New listing: two bed harbour-front apartment with a full-width balcony over the water. Viewings this weekend, book a slot online.",cta:"Learn more"}},
+    gmb:{rows:[["Profile views", "2,260", "+17%", "Rises with each listing published, then decays over about ten days."],["Call clicks", "148", "+21%", "Enquiries by phone are half of all enquiries and none of them are tracked elsewhere."],["Direction requests", "74", "+4%", "Low, and that is correct -- nobody drives to an estate agent unannounced."],["Reviews", "31", "4.7 avg", "Thin for the sector. Volume here would move local ranking more than anything else."]],note:"Half of all enquiries arrive by phone through the profile, and none of them appear in feed analytics.",flag:"31 reviews is thin. Review volume moves local ranking more than any post on this list."},
+    say:"I have just seen the waterfront two-bed, the balcony looks over the whole harbour. Viewings are this weekend. Make something for it.",
     assets:[["Video","Waterfront apartment -- full walkthrough","0:42 VERTICAL"],
             ["Photo","Harbour-front, two bed","1080 x 1350"],
             ["Page","/listings/waterfront-apartment","LISTING PAGE"]],
@@ -530,128 +843,509 @@ const BIZ = {
 };
 
 const SURF = [
-  { k:"feed", n:"Feed",    t:"What the posts did" },
-  { k:"site", n:"Site",    t:"The pages this loop built" },
-  { k:"seo",  n:"Search",  t:"Queries the pages now answer" },
-  { k:"geo",  n:"AI",      t:"Prompts answer engines quote you for" },
-  { k:"crt",  n:"Creators",t:"Who carried it, and what it returned" }
+  { k:"feed", n:"Feed",     t:"What the posts did" },
+  { k:"site", n:"Site",     t:"The pages this built" },
+  { k:"seo",  n:"Search",   t:"Queries the pages now answer" },
+  { k:"geo",  n:"AI",       t:"Prompts answer engines quote you for" },
+  { k:"gmb",  n:"GMB",      t:"What the business profile did" },
+  { k:"crt",  n:"Creators", t:"Who carried it, and what it returned" }
 ];
 
 const STEPS = [
-  { s:"Say it",        t:"Say What You Want",  p:"One sentence is the whole brief." },
-  { s:"It gets made",  t:"It Gets Made",       p:"Post, page and caption, ready to review." },
-  { s:"It goes live",  t:"It Goes Live",       p:"Feed, website, search and answer engines, in one publish." },
-  { s:"It gets read",  t:"What It Actually Did", p:"Feed, search, AI answers and creators -- all of it attributed." },
-  { s:"It decides",    t:"It Writes The Next One", p:"What worked chooses what gets made." }
+  { s:"Say it",       t:"Say What You Want",      p:"Say it the way you would say it to a person." },
+  { s:"It goes live", t:"It Goes Live",           p:"Every channel you picked, in one publish." },
+  { s:"It gets read", t:"What It Actually Did",   p:"Every surface it reached, attributed back." },
+  { s:"It decides",   t:"It Writes The Next One", p:"What worked chooses what gets made." }
+];
+
+/* AEO/GEO is absent by design -- you do not make an AEO asset, you earn
+   citations from the pages you already made. It exists only in analytics. */
+const CHAN = [
+  { k:"video", n:"Video" }, { k:"photo", n:"Photo" },
+  { k:"seo",   n:"SEO Page" }, { k:"gmb", n:"GMB" }
 ];
 
 /* ---------------------------------------------------------------- state */
-let biz = null, i = 0, cyc = 1, heard = false, published = false, sf = 0, timers = [];
+let biz = "gym", view = "dash", i = 0, cyc = 1;
+let heard = false, working = false, built = false, published = false;
+let picked = { video:1, photo:1, seo:1, gmb:1 };
+let sf = 0, hin = true, timers = [];
+let shown = "", talking = false, vtimers = [], explored = false;
 const el = id => document.getElementById(id);
 const later = (fn, ms) => timers.push(setTimeout(fn, ms));
 
 function begin() { el("start").hidden = true; render(); }
+function explore() { explored = true; view = "loop"; i = 0; render(); }
 
 /* --------------------------------------------------------------- render */
 function render() {
   timers.forEach(clearTimeout); timers = [];
-  el("track").innerHTML = STEPS.map((_, n) =>
-    `<button class="stg ${n === i ? "on" : n < i ? "past" : ""}" aria-label="Step ${n + 1}"
-       onclick="jump(${n})"><span class="d"></span><span class="ln"></span></button>`).join("") +
-    `<span class="stg ${i === 4 ? "on" : ""}" aria-hidden="true"><span class="d loop"></span></span>`;
-  el("stage").textContent = `${i + 1}. ${STEPS[i].s}`;
-  el("cycle").textContent = `Cycle ${cyc}`;
-  el("title").textContent = STEPS[i].t;
-  el("sub").innerHTML = STEPS[i].p;
-  el("chipTxt").textContent = biz ? BIZ[biz].name : "Pick one";
-  el("cap").innerHTML = biz ? BIZ[biz].who : "Choose an account to begin";
-  el("back").disabled = i === 0;
-  el("fwd").disabled = !biz;
-  el("fwd").innerHTML = pending() || (i === 4
-    ? "Start cycle " + (cyc + 1) + " &nbsp;&#8635;" : "Next &rsaquo;");
-  el("screen").innerHTML = body();
+  const b = BIZ[biz], dash = view === "dash";
+
+  el("chipTxt").textContent = b.name;
+  el("lang").textContent = hin ? "HI" : "EN";
+  el("lang").setAttribute("aria-pressed", hin);
+  el("track").style.display = dash ? "none" : "flex";
+  el("stage").textContent = dash ? "OVERVIEW" : `${i + 1}. ${STEPS[i].s}`;
+  el("cycle").textContent = dash ? "" : `Cycle ${cyc}`;
+  el("title").textContent = dash ? b.who : STEPS[i].t;
+  el("sub").innerHTML = dash ? b.at : STEPS[i].p;
+  el("cap").innerHTML = b.who;
+  el("foot").style.display = dash ? "none" : "flex";
+  el("expwrap").style.display = dash ? "inline-flex" : "none";
+  el("expwrap").className = "expwrap" + (explored ? " seen" : "");
+  el("lang").style.display = dash ? "none" : "";
+  el("snd").style.display = dash ? "none" : "";
+
+  if (!dash) {
+    el("track").innerHTML = STEPS.map((_, n) =>
+      `<button class="stg ${n === i ? "on" : n < i ? "past" : ""}" aria-label="Step ${n + 1}"
+         onclick="jump(${n})"><span class="d"></span><span class="ln"></span></button>`).join("") +
+      `<span class="stg ${i === 3 ? "on" : ""}" aria-hidden="true"><span class="d loop"></span></span>`;
+    el("fwd").innerHTML = pending() ||
+      (i === 3 ? "Start cycle " + (cyc + 1) + " &nbsp;&#8635;" : "Next &rsaquo;");
+  }
+
+  el("screen").innerHTML = dash ? dashboard() : body();
   el("screen").scrollTop = 0;
-  if (i === 4) later(() =>
+  if (!dash && (i === 2 || i === 3)) later(() =>
     document.querySelectorAll(".fil").forEach(f => f.style.width = f.dataset.w + "%"), 70);
+  if (dash) later(() => {
+    drawSpark();
+    document.querySelectorAll(".mixb .fl2").forEach(f => f.style.width = f.dataset.w + "%");
+  }, 60);
 }
 
-function body() {
-  if (!biz) return `<div class="lbl">Choose an account</div><div class="pick">` +
-    Object.entries(BIZ).map(([k, v]) => `<button onclick="choose('${k}')">
-      <span class="em">${v.ini}</span>
-      <span><span class="nm">${v.name}</span><span class="sb">${v.at}</span></span>
-    </button>`).join("") + `</div>`;
+/* ------------------------------------------------------------ dashboard */
+function dashboard() {
+  const b = BIZ[biz], p = b.perf, up = p.dir > 0;
+  const mx = Math.max(...b.rev12);
+  return `
+  <div class="money">
+    <span class="mk">Revenue generated</span>
+    <span class="mv">Rs ${b.money.gen}</span>
+    <span class="mrow"><span class="mt">of Rs ${b.money.total} total</span>
+      <span class="mvs ${up ? "" : "dn"}">${b.vs}</span></span>
+    <span class="rev">${b.rev12.map((v, n) =>
+      `<i style="height:${Math.max(3, v / mx * 38)}px" class="${n === b.rev12.length - 1 ? "last" : ""}"></i>`
+      ).join("")}</span>
+    <span class="revax"><span>12 months ago</span><span>this month</span></span>
+  </div>
 
+  <div class="lbl">Last 30 days</div>
+  <div class="stats">${b.stats.map(([k, v, dlt, dir]) =>
+    `<div class="stat"><span class="sk">${k}</span><span class="sv">${v}</span>
+      <span class="sd ${dir > 0 ? "up" : "dn"}">${dlt}</span></div>`).join("")}</div>
+
+  <div class="perf ${up ? "up" : "dn"}">
+    <div class="ph">
+      <span class="pill">${up ? "&uarr;" : "&darr;"} ${p.pct}</span>
+      <span class="pt">${b.recur.label.toLowerCase()}</span>
+      <canvas class="spark" id="spark" width="112" height="28"></canvas>
+    </div>
+    <p class="pw">${p.why}</p>
+    <p class="pp"><b>Next</b> ${p.plan}</p>
+  </div>
+
+  <div class="lbl">Where the enquiries came from</div>
+  <div class="mixb">${b.mix.map(([k, v]) =>
+    `<div class="mixr"><span class="mxk">${k}</span>
+      <span class="trk2"><span class="fl2" data-w="${v}" style="width:0"></span></span>
+      <span class="mxv">${v}%</span></div>`).join("")}</div>
+
+  <div class="lbl">Standouts</div>
+  <button class="std good" onclick="openStd(1)">
+    <span class="stag">Best</span><span class="stt">${b.best[0]}</span>
+    <span class="stm">${b.best[1]}</span><span class="stn">${b.best[2]}</span></button>
+  <button class="std bad" onclick="openStd(0)">
+    <span class="stag">Watch</span><span class="stt">${b.watch[0]}</span>
+    <span class="stm">${b.watch[1]}</span></button>
+
+  <div class="foots">
+    <button onclick="openStock('items')"><span class="fk">Content items</span>
+      <span class="fv">${b.stock.items}</span></button>
+    <button onclick="openStock('profiles')"><span class="fk">Profiles</span>
+      <span class="fv">${b.stock.profiles}</span></button>
+    <button onclick="openStock('credits')"><span class="fk">Credits left</span>
+      <span class="fv">${b.stock.credits}</span></button>
+  </div>`;
+}
+
+function openStd(good) {
+  const b = BIZ[biz];
+  if (good) return sheet(b.best[0], b.best[1].replace(/&middot;/g, "-"), [
+    ["Result", b.best[2]],
+    ["Why it worked", b.perf.why],
+    ["What follows", b.perf.plan]
+  ]);
+  sheet(b.watch[0], "Costing you a slot", [
+    ["What is happening", b.watch[1]],
+    ["What it costs", "Every one of these takes a publishing slot that a converting format could have had."],
+    ["What follows", b.perf.plan]
+  ]);
+}
+
+/* The month line is a shape, not a table -- it only has to show direction. */
+function drawSpark() {
+  const c = el("spark");
+  if (!c || !c.getContext) return;
+  const b = BIZ[biz], v = b.recur.series, ctx = c.getContext("2d");
+  const w = c.width, h = c.height, lo = Math.min(...v), hi = Math.max(...v);
+  const x = n => n / (v.length - 1) * (w - 4) + 2;
+  const y = n => h - 4 - (n - lo) / ((hi - lo) || 1) * (h - 8);
+  ctx.clearRect(0, 0, w, h);
+  ctx.beginPath();
+  v.forEach((n, k) => k ? ctx.lineTo(x(k), y(n)) : ctx.moveTo(x(k), y(n)));
+  ctx.strokeStyle = b.perf.dir > 0 ? "#2dd4bf" : "#fb7185";
+  ctx.lineWidth = 2; ctx.lineJoin = "round"; ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(x(v.length - 1), y(v[v.length - 1]), 3, 0, 7);
+  ctx.fillStyle = b.perf.dir > 0 ? "#2dd4bf" : "#fb7185"; ctx.fill();
+}
+
+/* -------------------------------------------------------------- the loop */
+function body() {
   const b = BIZ[biz];
   const bars = n => Array.from({length: n}, (_, x) =>
     `<i style="animation-delay:${x * .1}s"></i>`).join("");
 
+  /* 1 -- say it, choose channels, watch it get made */
   if (i === 0) {
-    const line = cyc === 1 ? b.say : b.next;
     if (!heard) return `<div class="lbl">Tap to speak</div>
       <button class="mic act" onclick="listen()" style="width:100%;text-align:left">
         <span class="orb"><span class="wave">${bars(5)}</span></span>
-        <span class="tx"><b>Tap to talk</b>One sentence is the whole brief</span><span class="arrow" aria-hidden="true">&rsaquo;</span></button>` +
+        <span class="tx"><b>Tap to talk</b>However you would say it out loud</span>
+        <span class="arrow" aria-hidden="true">&rsaquo;</span></button>` +
       (cyc > 1 ? `<div class="carry"><b>&#8635;</b><span>Cycle ${cyc} opens with the line
         the last cycle wrote for you. Tap to hear it.</span></div>` : "");
-    return `<div class="lbl">Heard</div>
-      <button class="mic live" id="micbox" onclick="replay()"
+
+    let out = `<div class="lbl">Heard</div>
+      <button class="mic ${talking ? "live" : ""}" id="micbox" onclick="replay()"
               style="width:100%;text-align:left" title="Play it again">
         <span class="orb"><span class="wave">${bars(5)}</span></span>
-        <span class="tx"><b id="micst">Listening</b>${b.at}</span>
+        <span class="tx"><b id="micst">${talking ? "Listening" : "Transcribed"}</b>${b.at}</span>
         <span class="arrow" aria-hidden="true">&#8635;</span></button>
-      <div class="said fade"><span class="who">${cyc === 1 ? "You said" : "Written by cycle " + (cyc - 1)}</span><span
-        id="tt"></span><i class="caret" id="caret"></i></div>` +
-      (cyc > 1 ? `<div class="carry fade"><b>&#8635;</b><span>You did not write this one.
-        It came from what the last batch of posts actually did.</span></div>` : "");
+      <div class="said fade"><span class="who">${cyc === 1 ? "You said"
+        : "Written by cycle " + (cyc - 1)}</span><span id="tt">${shown}</span>${
+        talking ? `<i class="caret" id="caret"></i>` : ""}</div>`;
+
+    out += `<div class="lbl">${cyc === 1 ? "What should we make?"
+      : "Chosen from what worked &middot; change any of it"}</div><div class="chans">` +
+      CHAN.map(c => `<button class="chan ${picked[c.k] ? "on" : ""}"
+        ${working ? "disabled" : ""} onclick="toggleChan('${c.k}')">
+        <span class="box">${picked[c.k] ? "&#10003;" : ""}</span>${c.n}</button>`).join("") + `</div>`;
+
+    if (!working) return out +
+      `<button class="explore" id="genbtn" onclick="generate()">Generate &nbsp;&rarr;</button>`;
+
+    return out + `<div class="lbl">Working</div>
+      <div class="gsteps" id="gsteps"></div><div id="madebox"></div>`;
   }
 
-  if (i === 1) return `<div class="lbl">Draft &middot; tap any piece</div>
-    <div class="made">` + b.assets.map(([kind, cap, spec], n) =>
-      `<button class="asset fade" style="animation-delay:${n * 80}ms" onclick="openAsset(${n})">
-        <span class="kind">${kind}</span><span class="cap">${cap}</span>
-        <span class="frame">${spec}</span></button>`).join("") + `</div>
-    <div class="hitl"><span class="dot"></span><span>A person checks every piece
-      <b>24 hours before</b> anything publishes. Nothing goes out unreviewed.</span></div>`;
-
-  if (i === 2) {
-    if (!published) return `<div class="lbl">Approved and queued</div>
-      <button class="mic act" onclick="publish()" style="width:100%;text-align:left">
-        <span class="orb"><span class="wave">${bars(5)}</span></span>
-        <span class="tx"><b>Publish everywhere</b>Feed, site, search and answers in one go</span><span class="arrow" aria-hidden="true">&rsaquo;</span></button>`;
+  /* 2 -- one confirmation, then it goes everywhere */
+  if (i === 1) {
+    if (!published) return `<div class="lbl">Going to</div>` +
+      CHAN.filter(c => picked[c.k]).map(c => `<div class="dest">
+        <span class="dk">${c.n}</span><span class="dv">${b.made[c.k].t}</span></div>`).join("") +
+      `<label class="confirm"><input type="checkbox" id="cf" onchange="arm()">
+        <span>Confirm and publish across all selected channels</span></label>
+       <div class="hitl"><span class="dot"></span><span>A person checks every piece
+         <b>24 hours before</b> anything publishes. Nothing goes out unreviewed.</span></div>
+       <button class="explore" id="pub" disabled onclick="publish()">Publish everywhere &nbsp;&rarr;</button>`;
     return `<div class="lbl">Publishing &middot; live</div><div class="trace" id="tr"></div>`;
   }
 
-  if (i === 3) {
+  /* 3 -- what every surface did, with subscriptions further down */
+  if (i === 2) {
     const bar = `<div class="tabs">` + SURF.map((t, n) =>
       `<button aria-selected="${n === sf}" onclick="pickSurf(${n})">${t.n}</button>`).join("") +
       `</div><div class="lbl">${SURF[sf].t} &middot; tap a row</div>`;
 
-    if (sf === 0) return bar + b.posts.map((p, n) =>
+    let main;
+    if (sf === 0) main = b.posts.map((p, n) =>
       `<button class="post fade" style="animation-delay:${n * 60}ms" onclick="openPost(${n})">
         <span class="t">${p.t}${tag(p)}<span class="ch" aria-hidden="true">&rsaquo;</span></span>
         <span class="m">${p.m}</span>
         <span class="res">${p.r.map(([k, v, c]) =>
           `<span><span class="k">${k}</span><span class="v ${c}">${v}</span></span>`).join("")}</span>
       </button>`).join("");
-
-    const d = b.surf[SURF[sf].k];
-    return bar + DRAW[SURF[sf].k](d) +
-      `<div class="read pos"><span class="h">The read</span>${d.note}</div>
-       <div class="read gap"><span class="h">The gap</span>${d.flag}</div>`;
+    else {
+      const d = SURF[sf].k === "gmb" ? b.gmb : b.surf[SURF[sf].k];
+      main = DRAW[SURF[sf].k](d) +
+        `<div class="read pos"><span class="h">The read</span>${d.note}</div>
+         <div class="read gap"><span class="h">The gap</span>${d.flag}</div>`;
+    }
+    return bar + main + recurBlock();
   }
 
+  /* 4 -- growth, why, and the line that starts the next cycle */
+  const p = b.perf, up = p.dir > 0;
   return `<div class="lbl">Engagement by format &middot; tap a bar</div>` +
     b.fmts.map(([n, v, w], x) => `<button class="fmt" onclick="openFmt(${x})">
       <span class="n">${n}</span><span class="trk"><span class="fil" data-w="${w}"></span></span>
       <span class="p">${v}%</span><span class="c" aria-hidden="true">&rsaquo;</span>
     </button>`).join("") +
     `<div class="found">${b.found}</div>
+     <div class="perf ${up ? "up" : "dn"}" style="margin-top:10px">
+       <div class="ph"><span class="pill">${up ? "&uarr;" : "&darr;"} ${p.pct}</span>
+         <span class="pt">${up ? "up on the month" : "down on the month"}</span></div>
+       <p class="pw">${p.why}</p>
+     </div>
      <div class="brief fade"><div class="h">Next cycle, written for you</div>
-       <div class="a">${b.next}</div><div class="w">${b.because}</div></div>`;
+       <div class="a">${hin ? b.nextHi : b.next}</div><div class="w">${b.because}</div></div>`;
 }
 
+/* Subscriptions have no tab of their own -- they sit under analytics, on scroll. */
+function recurBlock() {
+  const b = BIZ[biz], v = b.recur.series, lo = Math.min(...v), hi = Math.max(...v);
+  const first = v[0], last = v[v.length - 1], up = last >= first;
+  return `<div class="lbl">${b.recur.label} &middot; month on month</div>
+    <div class="recur">
+      <div class="rhead"><span class="rnum">${last}</span>
+        <span class="rdel ${up ? "" : "dn"}">${up ? "+" : ""}${last - first} in 12 months</span></div>
+      <div class="rbars">` + v.map((n, x) =>
+        `<i style="height:${Math.max(3, n / hi * 38)}px"
+            title="${n}" class="${x === v.length - 1 ? "last" : ""}"></i>`).join("") + `</div>
+    </div>`;
+}
+
+
 function pickSurf(n) { sf = n; render(); }
+
+/* Both traces are composed from the chosen channels -- narrating work on a
+   channel nobody asked for is the fastest way to lose trust in a demo. */
+const WRITE = {
+  video: ["Writing the script and shot list", "Script aur shot list likh raha hoon"],
+  photo: ["Writing the caption and picking the frame", "Caption likh raha hoon, frame choose kar raha hoon"],
+  seo:   ["Writing the page, title and meta description", "Page, title aur meta description likh raha hoon"],
+  gmb:   ["Writing the business profile post", "Business profile ka post likh raha hoon"]
+};
+
+function joinList(a) {
+  if (a.length < 2) return a[0] || "";
+  return a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
+}
+
+function genTrace() {
+  const g = BIZ[biz].gen, out = [g[0], g[1], g[2]];
+  if (picked.seo) out.push(g[3]);        // the site is only read if a page is wanted
+  if (picked.gmb) out.push(g[4]);        // ditto the business profile
+  CHAN.forEach(c => { if (picked[c.k]) out.push(["think", WRITE[c.k][0], WRITE[c.k][1]]); });
+  out.push(g[6]);
+  return out;
+}
+
+function liveTrace() {
+  const L = BIZ[biz].live, out = [], where = [];
+  if (picked.video || picked.photo) { out.push(L[0]); where.push("feed"); }
+  if (picked.seo) { out.push(L[1], L[2], L[3], L[4], L[5]); where.push("site", "search", "answers"); }
+  if (picked.gmb) { out.push(["Profile", "Posted to the Google Business Profile", ""]); where.push("profile"); }
+  out.push(["Live", "Live across " + joinList(where), "done"]);
+  return out;
+}
+
+function toggleChan(k) {
+  if (working) return;
+  picked[k] = picked[k] ? 0 : 1;
+  if (!CHAN.some(c => picked[c.k])) picked[k] = 1;   // never leave nothing selected
+  render();
+}
+
+/* The working sequence: what it looked at, then what it wrote. The source rows
+   are the point -- they show it reading the account before it writes anything. */
+function generate() {
+  working = true; built = false; render();
+  const box = el("gsteps"), steps = genTrace();
+  steps.forEach(([kind, one, two], n) => later(() => {
+    if (!box.isConnected) return;
+    box.insertAdjacentHTML("beforeend", kind === "src"
+      ? `<div class="gs fade"><span class="ico src">&#9673;</span>
+           <span class="gt">${one}</span><span class="gd">${two}</span></div>`
+      : `<div class="gs fade"><span class="ico">&#10022;</span>
+           <span class="gt">${hin ? two : one}</span></div>`);
+    el("screen").scrollTop = 9e5;
+  }, 560 * n + 200));
+  later(showMade, 560 * steps.length + 300);
+}
+
+function showMade() {
+  const b = BIZ[biz], box = el("madebox");
+  if (!box) return;
+  built = true;
+  box.innerHTML = `<div class="lbl">Made &middot; tap to read it</div>` +
+    CHAN.filter(c => picked[c.k]).map((c, n) => {
+      const m = b.made[c.k];
+      return `<button class="mcard fade" style="animation-delay:${n * 70}ms"
+        onclick="openMade('${c.k}')">
+        <span class="mh"><span class="mkind">${c.n}</span>
+          <span class="mspec">${m.spec}</span>
+          <span class="mch" aria-hidden="true">&rsaquo;</span></span>
+        ${previewOf(c.k, m)}</button>`;
+    }).join("");
+  el("screen").scrollTop = 9e5;
+}
+
+function previewOf(k, m) {
+  const thumb = k === "seo"
+    ? `<span class="thumb page"><i></i><i></i><i></i></span>`
+    : `<span class="thumb" style="${artStyle(k === "gmb" ? 2 : 0)}">
+         ${k === "video" ? '<em>&#9658;</em>' : ""}</span>`;
+  const txt = {
+    video: () => [`"${m.hook}"`, `${m.beats.length} shots &middot; ${m.spec}`],
+    photo: () => [m.overlay.replace(/ \/ /g, " &middot; "), m.caption],
+    seo:   () => [m.h1, m.meta],
+    gmb:   () => [m.text, m.cta + " button"]
+  }[k]();
+  return `<span class="mbody">${thumb}
+    <span class="mtx"><span class="mq">${txt[0]}</span>
+      <span class="mb">${txt[1]}</span></span></span>`;
+}
+
+
+/* ---------------------------------------------------------------- creative
+   Every host except this page is blocked, so the artwork is composed here out
+   of layered gradients rather than fetched. Each account gets its own palette
+   and the seed shifts the composition, so beats of a video differ. */
+const ART = {
+  gym:        ["#08201f", "#2dd4bf", "#a7f3d0", "#0d3a36"],
+  salon:      ["#2a1220", "#f472b6", "#fbcfe8", "#401c2e"],
+  restaurant: ["#2a1a08", "#fbbf24", "#fde68a", "#40270f"],
+  realestate: ["#07202e", "#38bdf8", "#bae6fd", "#0b3247"]
+};
+
+function artStyle(seed) {
+  const P = ART[biz] || ART.gym, s2 = seed || 0;
+  const x1 = 26 + s2 * 17, y1 = 28 + s2 * 12, x2 = 80 - s2 * 14;
+  return `background:`
+    + `radial-gradient(56% 42% at ${x1}% ${y1}%, ${P[1]}bb, transparent 66%),`
+    + `radial-gradient(44% 34% at ${x2}% 76%, ${P[2]}55, transparent 70%),`
+    + `linear-gradient(158deg, ${P[0]}, ${P[3]})`;
+}
+
+function host() {
+  return BIZ[biz].who.toLowerCase().replace(/[^a-z]/g, "") + ".in";
+}
+
+function photoArt(m) {
+  return `<div class="art" style="${artStyle(0)}">
+    <span class="artover">${m.overlay.replace(/ \/ /g, "<br>")}</span>
+    <span class="artmark">${BIZ[biz].who}</span></div>`;
+}
+
+/* The shot list, played. Not a real encode -- but it shows what the 24 seconds
+   actually contain, which is the part a person needs to approve. */
+function videoArt(m) {
+  return `<div class="art vid" id="vart" style="${artStyle(0)}">
+      <span class="artover sm" id="vcap">"${m.hook}"</span>
+      <span class="artmark">${m.spec}</span>
+      <button class="play" id="vplay" onclick="playBeats()" aria-label="Play">&#9658;</button>
+      <span class="vbar"><i id="vfill"></i></span>
+    </div>
+    <div class="beats" id="vbeats">${m.beats.map((x, n) =>
+      `<div class="beat" id="bt${n}"><span class="bn">${n + 1}</span>${x}</div>`).join("")}</div>`;
+}
+
+function playBeats() {
+  const m = BIZ[biz].made.video, art = el("vart");
+  if (!art) return;
+  el("vplay").style.display = "none";
+  m.beats.forEach((txt, n) => later(() => {
+    if (!el("vart")) return;
+    el("vart").setAttribute("style", artStyle(n));
+    el("vcap").innerHTML = txt.replace(/^\S+\s+/, "");
+    el("vfill").style.width = ((n + 1) / m.beats.length * 100) + "%";
+    m.beats.forEach((_, k) => {
+      const b = el("bt" + k);
+      if (b) b.className = "beat" + (k === n ? " on" : k < n ? " done" : "");
+    });
+  }, 1500 * n + 100));
+  later(() => {
+    if (!el("vplay")) return;
+    el("vplay").style.display = "";
+    el("vcap").innerHTML = `"${m.hook}"`;
+    el("vfill").style.width = "0%";
+    m.beats.forEach((_, k) => { const b = el("bt" + k); if (b) b.className = "beat"; });
+  }, 1500 * m.beats.length + 900);
+}
+
+/* The page, rendered -- headings, copy and sections in place, inside chrome,
+   because a meta description in a list is not something anyone can approve. */
+function pageArt(m) {
+  const b = BIZ[biz];
+  return `<div class="brw">
+    <div class="brwbar"><i></i><i></i><i></i>
+      <span class="url">${host()}${m.t}</span></div>
+    <div class="brwpage">
+      <div class="pnav"><b>${b.who}</b><span></span><span></span><span></span></div>
+      <div class="phero" style="${artStyle(1)}"><b>${m.h1}</b></div>
+      <p class="pbody">${m.body}</p>
+      ${m.sections.map(x => `<div class="psec">${x}<i>&rsaquo;</i></div>`).join("")}
+      <div class="pcta">${m.sections[m.sections.length - 1]}</div>
+      <div class="pfoot">${host()}</div>
+    </div></div>`;
+}
+
+function gmbArt(m) {
+  const b = BIZ[biz];
+  return `<div class="gpost">
+    <div class="ghead"><span class="gav">${b.ini}</span>
+      <span class="gwho"><b>${b.who}</b><em>Business Profile &middot; just now</em></span></div>
+    <div class="gart" style="${artStyle(2)}"></div>
+    <p class="gtext">${m.text}</p>
+    <div class="gcta">${m.cta}</div></div>`;
+}
+
+function creative(k, m) {
+  if (k === "video") return videoArt(m);
+  if (k === "photo") return photoArt(m);
+  if (k === "seo")   return pageArt(m);
+  return gmbArt(m);
+}
+
+function openMade(k) {
+  const m = BIZ[biz].made[k], nm = CHAN.find(c => c.k === k).n;
+  const rows = {
+    video: () => [["Hook", `<b>"${m.hook}"</b>`],
+                  ["Shot list", m.beats.join("<br>")],
+                  ["Caption", m.caption], ["Tags", m.tags]],
+    photo: () => [["On the image", `<b>${m.overlay}</b>`],
+                  ["Caption", m.caption], ["Tags", m.tags]],
+    seo:   () => [["Page heading", `<b>${m.h1}</b>`],
+                  ["Title tag", m.title],
+                  ["Meta description", m.meta],
+                  ["Opening copy", m.body],
+                  ["Sections", m.sections.join("<br>")],
+                  ["URL", m.t]],
+    gmb:   () => [["Post", `<b>${m.text}</b>`],
+                  ["Button", m.cta],
+                  ["Why it matters", "The profile is where calls and direction requests "
+                    + "come from, and where answer engines read your hours and prices."]]
+  }[k]();
+  sheet(m.t, `${nm} &middot; ${m.spec}`, rows, creative(k, m));
+}
+
+function openStock(kind) {
+  const b = BIZ[biz];
+  if (kind === "items") return sheet("Content items", `${b.stock.items} pieces made so far`, [
+    ["What is counted", "Every video, photo, page and profile post this system has produced for "
+      + b.who + "."],
+    ["Where they went", "Feed, website, search and the business profile -- each piece usually lands on more than one."]
+  ]);
+  if (kind === "profiles") return sheet("Connected profiles", `${b.stock.profiles} connected`, [
+    ["Social", "Instagram " + b.at + "<br>Facebook page"],
+    ["Website", b.made.seo.t.split("/")[1] ? b.who.toLowerCase().replace(/ /g, "") + ".in" : "-"],
+    ["Business", "Google Business Profile"],
+    ["What connecting does", "Publishing reaches them in one action, and everything they report comes back into analytics."]
+  ]);
+  return sheet("Credits", `${b.stock.credits} remaining`, [
+    ["What they are", "Your balance on the plan. Making and publishing a piece draws from it."],
+    ["This account", b.stock.credits + " left on the current plan."]
+  ]);
+}
+
+function arm() { el("pub").disabled = !el("cf").checked; }
+
+
 
 /* Each surface answers a different shape of question, so each gets the chart
    that question deserves -- one accent, one scale, never two axes. */
@@ -701,6 +1395,14 @@ const DRAW = {
       <span class="wide"><span class="mark ${cited ? "on" : ""}"></span>
         <span class="srcp">${src}</span></span>`)).join(""),
 
+  /* GMB: four unrelated headline numbers. Different magnitudes, so tiles --
+     putting profile views and review counts on one scale would lie. */
+  gmb: d => `<div class="tiles">` + d.rows.map(([k, v, delta, why], n) =>
+      `<button class="tile fade" style="animation-delay:${n * 60}ms" onclick="openRow(${n})">
+        <span class="tk">${k}</span><span class="tv">${v}</span>
+        <span class="td ${/^-/.test(delta) ? "dn" : /^\+/.test(delta) ? "up" : ""}">${delta}</span>
+      </button>`).join("") + `</div>`,
+
   /* Creators: the point is the mismatch, so show both bars on one scale each. */
   crt: d => {
     const mr = Math.max(...d.rows.map(r => r[1])), mv = Math.max(...d.rows.map(r => r[2])) || 1;
@@ -732,7 +1434,9 @@ function tag(p) {
 /* ----------------------------------------------------------------- taps */
 function choose(k) {
   stopVoice();
-  biz = k; i = 0; cyc = 1; heard = false; published = false; sf = 0;
+  biz = k; view = "dash"; i = 0; cyc = 1; sf = 0;
+  heard = working = built = published = false;
+  picked = { video:1, photo:1, seo:1, gmb:1 };
   el("menu").hidden = true;
   render();
 }
@@ -759,16 +1463,20 @@ const VOICE_RANK = [
 ];
 
 function pickVoice() {
-  const en = voices.filter(v => /^en(-|$)/i.test(v.lang));
-  if (!en.length) return null;
+  const want = hin ? /^hi(-|$)/i : /^en(-|$)/i;
+  let pool = voices.filter(v => want.test(v.lang));
+  if (!pool.length && hin) pool = voices.filter(v => /^en-IN/i.test(v.lang));
+  if (!pool.length) pool = voices.filter(v => /^en(-|$)/i.test(v.lang));
+  if (!pool.length) return null;
   for (const rank of VOICE_RANK) {
-    const hit = en.find(v => rank.test(v.name));
+    const hit = pool.find(v => rank.test(v.name));
     if (hit) return hit;
   }
-  return en.find(v => !/david|mark|zira/i.test(v.name)) || en[0];
+  return pool.find(v => !/david|mark|zira/i.test(v.name)) || pool[0];
 }
 
 function show(txt) {
+  shown = txt;
   const t = el("tt");
   if (t) t.textContent = txt;
   const s = el("screen");
@@ -776,6 +1484,7 @@ function show(txt) {
 }
 
 function endSpeech() {
+  talking = false;
   const c = el("caret"), m = el("micbox"), st = el("micst");
   if (c) c.remove();
   if (m) m.classList.remove("live");
@@ -789,40 +1498,53 @@ function reveal(text, done) {
   const step = () => {
     n++;
     show(words.slice(0, n).join(" "));
-    if (n < words.length) timers.push(setTimeout(step, 90 + words[n - 1].length * 34));
+    if (n < words.length) vtimers.push(setTimeout(step, 90 + words[n - 1].length * 34));
     else done();
   };
   step();
 }
 
-function transcribe(text) {
-  said = text;
-  if (!sound || !window.speechSynthesis) return reveal(text, endSpeech);
+function toggleLang() {
+  hin = !hin;
+  el("lang").textContent = hin ? "HI" : "EN";
+  el("lang").setAttribute("aria-pressed", hin);
+  stopVoice();
+  if (view === "loop" && i === 0 && heard) { render(); listen(); } else render();
+}
+
+function transcribe(shown, spoken) {
+  said = shown;
+  spoken = spoken || shown;
+  if (!sound || !window.speechSynthesis) return reveal(shown, endSpeech);
 
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
+  const u = new SpeechSynthesisUtterance(spoken);
   const v = pickVoice();
   if (v) u.voice = v;
   u.rate = 0.97; u.pitch = 1.02;
 
+  /* In Hinglish the displayed line is romanised while the spoken one is
+     Devanagari, so character offsets do not map between them. Sync on how far
+     through the spoken words we are and scale that onto the displayed ones. */
+  const words = shown.split(" "), total = spoken.split(" ").length;
   let boundaries = 0;
   u.onboundary = e => {
     if (e.charIndex == null) return;
     boundaries++;
-    const nextSpace = text.indexOf(" ", e.charIndex);
-    show(text.slice(0, nextSpace === -1 ? text.length : nextSpace));
+    const done = spoken.slice(0, e.charIndex).split(" ").length;
+    const upto = Math.min(Math.max(Math.round(done / total * words.length), 1), words.length);
+    show(words.slice(0, upto).join(" "));
   };
-  u.onend = () => { show(text); endSpeech(); };
-  u.onerror = () => { show(text); endSpeech(); };
+  u.onend = () => { show(shown); endSpeech(); };
+  u.onerror = () => { show(shown); endSpeech(); };
   speechSynthesis.speak(u);
 
   // If the engine never reports word boundaries, pace it ourselves instead.
-  timers.push(setTimeout(() => {
-    if (!boundaries) reveal(text, () => {});
-  }, 700));
+  vtimers.push(setTimeout(() => { if (!boundaries) reveal(shown, () => {}); }, 700));
 }
 
 function stopVoice() {
+  vtimers.forEach(clearTimeout); vtimers = [];
   if (window.speechSynthesis) speechSynthesis.cancel();
 }
 
@@ -836,54 +1558,69 @@ function toggleSound() {
 function replay() { stopVoice(); listen(); }
 
 function listen() {
-  heard = true;
+  stopVoice();
+  view = "loop"; i = 0;          // speaking only ever happens on the first step
+  heard = true; talking = true; shown = "";
   render();
-  transcribe(cyc === 1 ? BIZ[biz].say : BIZ[biz].next);
+  const b = BIZ[biz];
+  const line = cyc === 1 ? (hin ? b.sayHi : b.say) : (hin ? b.nextHi : b.next);
+  const spoken = hin ? (cyc === 1 ? b.sayDev : b.nextDev) : line;
+  transcribe(line, spoken);
 }
 
 function publish() {
   published = true; render();
-  const b = BIZ[biz], box = el("tr");
-  b.live.forEach(([src, txt, cls], n) => later(() => {
+  const box = el("tr"), steps = liveTrace();
+  steps.forEach(([src, txt, cls], n) => later(() => {
+    if (!box.isConnected) return;
     box.insertAdjacentHTML("beforeend",
       `<div class="ev ${cls} fade"><span class="dot"></span>
          <span><span class="src">${src}</span>${txt}</span></div>`);
     el("screen").scrollTop = 9e5;
-    if (n === b.live.length - 1) render_fwd();
+    if (n === steps.length - 1) render_fwd();
   }, 520 * n + 180));
 }
+
 function render_fwd() { el("fwd").disabled = false; }
 
 /* A step can owe an action before it can be left. Next carries it out rather
    than sitting disabled, so there is never a tap that does nothing. */
 function pending() {
   if (i === 0 && !heard) return "Speak it &nbsp;&rsaquo;";
-  if (i === 2 && !published) return "Publish it &nbsp;&rsaquo;";
+  if (i === 0 && !working) return "Generate &nbsp;&rsaquo;";
+  if (i === 1 && !published) return "Publish it &nbsp;&rsaquo;";
   return null;
 }
 
-function fwd() {  stopVoice();
-
+function fwd() {
+  stopVoice();
+  if (view === "dash") return explore();
   if (i === 0 && !heard) return listen();
-  if (i === 2 && !published) return publish();
-  if (i < 4) { i++; return render(); }
-  cyc++; i = 0; heard = false; published = false; sf = 0; render();   // the loop closes
+  if (i === 0 && !working) return generate();
+  if (i === 1 && !published) { const c = el("cf"); if (c) c.checked = true; return publish(); }
+  if (i < 3) { i++; return render(); }
+  cyc++; i = 0; heard = working = built = published = false; sf = 0; render();
 }
-function go(d) { stopVoice(); i = Math.max(0, i + d); render(); }
+
+function go(d) {
+  stopVoice();
+  if (d < 0 && i === 0) { view = "dash"; return render(); }
+  i = Math.max(0, i + d); render();
+}
 function jump(n) {
   stopVoice();
-  if (!biz) return;
-  if (n > 0) heard = true;          // skipping ahead implies the earlier beats
-  if (n > 2) published = true;
+  if (n > 0) { heard = true; working = true; built = true; }
+  if (n > 1) published = true;
   i = n; render();
 }
 
 /* --------------------------------------------------------------- sheets */
-function sheet(title, sub, rows) {
+function sheet(title, sub, rows, hero) {
   el("scrim").hidden = false;
   const s = el("sheet");
   s.hidden = false;
   s.innerHTML = `<div class="grab"></div><h3>${title}</h3><div class="sub">${sub}</div>` +
+    (hero || "") +
     rows.map(([k, v]) => `<div class="row"><span class="rk">${k}</span><span class="rv">${v}</span></div>`).join("") +
     `<button class="close" onclick="shut()">Close</button>`;
   s.scrollTop = 0;
@@ -905,7 +1642,14 @@ function openPost(n) {
   sheet(p.t, p.m.replace(/&middot;/g, "-"), p.why);
 }
 function openRow(n) {
-  const k = SURF[sf].k, d = BIZ[biz].surf[k], r = d.rows[n];
+  const k = SURF[sf].k, b = BIZ[biz];
+  const d = k === "gmb" ? b.gmb : b.surf[k], r = d.rows[n];
+  if (k === "gmb") return sheet(r[0], `${r[1]} &middot; ${r[2]} on the quarter`, [
+    ["What happened", r[3]],
+    ["Why it counts", "The business profile is the only surface where someone can call you, "
+      + "ask for directions or leave a review. None of that shows up in feed analytics."],
+    ["Feeds the next brief", d.flag]
+  ]);
   const spec = {
     site: () => [r[0], `${r[1].toLocaleString()} sessions &middot; ${r[3].toFixed(2)}% convert`,
       [["What happened", r[5]],
